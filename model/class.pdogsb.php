@@ -136,6 +136,19 @@ class PdoGsb{
         return $laLigne;
     }
 
+    public function getIdVisiteurs(){
+        $req = "select id from visiteur";
+        $res = PdoGsb::$monPdo->query($req);
+        $lesIds = array();
+        $laLigne = $res->fetch();
+        while ($laLigne != null) {
+            $id = $laLigne['id'];
+            $lesIds[] = $id;
+            $laLigne = $res->fetch();
+        }
+        return $lesIds;
+    }
+
 
 }
 

@@ -23,7 +23,11 @@ switch ($uc) {
         break;
     }
     case 'etatFrais' :{
-        include("controllers/c_etatFrais.php");break;
+        include("controllers/c_etatFrais.php");
+        break;
+    }
+    case 'ajoutFrais':{
+        include("controllers/c_saisieFrais.php");
     }
 }
 
