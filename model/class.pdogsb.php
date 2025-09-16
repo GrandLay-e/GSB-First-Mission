@@ -146,30 +146,21 @@ class PdoGsb
         return $laLigne;
     }
 
-    public function getIdVisiteurs()
-    {
-        $req = "select id from visiteur";
+    //recupèrer noms et id
+    //---------------------------------------------------------------------------------------//
+    public function getInfosVisiteurs(){
+        $req = "Select id, nom from visiteur";
         $res = PdoGsb::$monPdo->query($req);
-        $lesIds = array();
+        $lesInfos = array();
         $laLigne = $res->fetch();
-        while ($laLigne != null) {
-            $id = $laLigne['id'];
-            $lesIds[] = $id;
+        while ($laLigne != null){
+            $nom = $laLigne["nom"];
+            $id = $laLigne["id"];
+            $lesInfos[$id] = $nom;
             $laLigne = $res->fetch();
         }
-        return $lesIds;
+        return $lesInfos;
     }
-
-    //vérifier sur une date pour un utilisateur est deja saisie
-   /* public function CheckClosedInputs($idVisiteur, $date){
-        $req = "select * from fichefrais where mois = :mois and idVisiteur = :idVisiteur and idEtat = 'CL'";
-        $res = PdoGsb::$monPdo->prepare($req);
-        $res->bindParam("mois", $date);
-        $res->bindParam("idVisiteur", $idVisiteur);
-        $res->execute();
-        $laLigne = $res->fetch();
-        return $laLigne;
-    }*/
 
     //Mettre à joute une fiche de frais
     public function updateFicheFrais($idVisiteur, $mois, $nbJustificatif, $montant, $dateModif, $idEtat){
